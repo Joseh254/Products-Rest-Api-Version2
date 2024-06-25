@@ -1,3 +1,5 @@
+import { PrismaClient } from '@prisma/client';
+
 export function getall(request, response) {
     response.send('getting all products');
   }
