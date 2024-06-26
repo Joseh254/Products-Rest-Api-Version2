@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 
+const prisma = new PrismaClient();
 export function getall(request, response) {
     response.send('getting all products');
   }
@@ -12,7 +13,11 @@ export function getoneproduct (request, response)  {
 //   *****************************************
 
 export function createProduct (request, response) {
-    response.send('creating a product');
+    try {
+      
+    } catch (error) {
+      
+    }
   }
 //   *************************************
 
