@@ -58,13 +58,64 @@ export async function createProduct (request, response) {
       response.status(500).json({success:false, message:error.message})
     }
   }
-//   *************************************
+//   ***********************************************************************************
 
-export function updateProduct  (request, response) {
-    response.send('updating products');
+export async function updateProduct  (request, response) {
+    // response.send('updating products');
+    const {product_name,product_description,product_price,product_on_offer,product_image}=request.body;
+    const id = request.params.id;
+    console.log(request.body);
+    try {
+      let updateProducts;
+      if (product_name){
+        updateProducts= await prisma.products.update({
+          where:{product_id:id},
+          data: {product_name:product_name}
+        })
+        
+      }
+
+      if (product_description){
+        updateProducts= await prisma.products.update({ 
+          where:{product_id:id},
+          data: {product_description:product_description}
+        })
+        
+      }
+
+      if (product_price){
+        updateProducts= await prisma.products.update({
+          where:{product_id:id},
+          data: {product_price:product_price}
+        })
+        
+      }
+
+      if (product_on_offer){
+        updateProducts= await prisma.products.update({
+          where:{product_id:id},
+          data: {product_on_offer:product_on_offer}
+        })
+        
+      }
+
+      if (product_image){
+        updateProducts= await prisma.products.update({
+          where:{product_id:id},
+          data: {product_image:product_image}
+        })
+        
+      }
+
+
+      response.status(200).json({success:true, message:"product updated succesfuly"})
+
+    } catch (error) {
+      response.status(404).json({success:true, message:error.message})
+    }
   }
 
-//   ************************************
+//   *************************************************************************************
 export async function deleteproduct (request, response) {
     // response.send('deleting product');
     const id = request.params.id;
