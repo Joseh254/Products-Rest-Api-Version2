@@ -64,7 +64,7 @@ export async function updateProduct  (request, response) {
     // response.send('updating products');
     const {product_name,product_description,product_price,product_on_offer,product_image}=request.body;
     const id = request.params.id;
-    console.log(request.body);
+    // console.log(request.body);
     try {
       let updateProducts;
       if (product_name){
