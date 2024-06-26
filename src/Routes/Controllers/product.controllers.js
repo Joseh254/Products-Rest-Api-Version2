@@ -1,13 +1,28 @@
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
-export function getall(request, response) {
-    response.send('getting all products');
+export async function getall(request, response) {
+    // response.send('getting all products');
+    try {
+      const products = await prisma.products.findMany();
+      response.status(200).json({success:true, data: products})
+    } catch (error) {
+      response.status(500).json({success:false,message:error.message})
+    }
   }
 
 //   ***************************************
-export function getoneproduct (request, response)  {
-    response.send('getting one product');
+export async function getoneproduct (request, response)  {
+    // response.send('getting one product');
+    const id = request.params.id;
+    try {
+      const product  = await prisma.products.findFirst()
+      where: {id: id}
+
+      response.status(200).json({success:true, data:product})
+    } catch (error) {
+      response.status(404).json({success:false, message:"product not found"})
+    }
   }
   
 //   *****************************************
@@ -28,7 +43,7 @@ export async function createProduct (request, response) {
         }
       })
 
-      response.status(201).json(newProduct)
+      response.status(201).json({success:true, message:"product created succesfuly"})
     } catch (error) {
       response.status(500).json({success:false, message:error.message})
     }
