@@ -12,11 +12,25 @@ export function getoneproduct (request, response)  {
   
 //   *****************************************
 
-export function createProduct (request, response) {
+export async function createProduct (request, response) {
+  // console.log(request.body);
     try {
-      
+      const {product_name,product_description,product_price,product_on_offer,product_image} = request.body;
+      const newProduct = await prisma.products.create({
+       data: {
+        // product_id:product_id,
+        product_name: product_name,
+        product_description: product_description,
+        product_price: product_price,
+        product_on_offer: product_on_offer,
+        product_image: product_image
+
+        }
+      })
+
+      response.status(201).json(newProduct)
     } catch (error) {
-      
+      response.status(500).json({success:false, message:error.message})
     }
   }
 //   *************************************
