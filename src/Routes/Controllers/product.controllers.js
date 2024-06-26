@@ -16,10 +16,12 @@ export async function getoneproduct (request, response)  {
     // response.send('getting one product');
     const id = request.params.id;
     try {
-      const product  = await prisma.products.findFirst()
-      where: {id: id}
+      const product  = await prisma.products.findFirst({
+        where:{product_id: id}
+      })
+  
 
-      response.status(200).json({success:true, data:product})
+      response.status(200).json({success:true,message:"Here is the product", data:product})
     } catch (error) {
       response.status(404).json({success:false, message:"product not found"})
     }
