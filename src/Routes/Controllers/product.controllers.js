@@ -17,7 +17,15 @@ export async function getoneproduct (request, response)  {
     const id = request.params.id;
     try {
       const product  = await prisma.products.findFirst({
-        where:{product_id: id}
+        where:{product_id: id},
+
+        select:{
+          product_id:false,
+          product_name:true,
+          product_description:true,
+          product_price:true,
+          product_on_offer:true
+        }
       })
   
 
