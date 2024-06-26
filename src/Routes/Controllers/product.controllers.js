@@ -65,7 +65,17 @@ export function updateProduct  (request, response) {
   }
 
 //   ************************************
-export function deleteproduct (request, response) {
-    response.send('deleting product');
+export async function deleteproduct (request, response) {
+    // response.send('deleting product');
+    const id = request.params.id;
+    try {
+      const delete_a_product =  await prisma.products.delete({
+        where:{product_id: id}
+      })
+      // response.send(delete_a_product)
+      response.status(200).json({success:true, message:"Product deleted succesfuly"})
+    } catch (error) {
+      response.status(404).json({success:false, message:"product not found"})
+    }
   }
 //   *****************************************

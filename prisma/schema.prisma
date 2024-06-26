@@ -21,7 +21,7 @@ model products{
   product_price Float @map("product_price")
   product_on_offer Boolean @map("product_on_offer")
   product_image String @map("product_image")
-  @@unique([product_image])
+  @@unique([product_image,product_id])
   @@map("products_table")
   
 }
